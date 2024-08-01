@@ -5,6 +5,9 @@ IMAGE_NAME = image.ppm
 
 run: generate visualize
 
+clean:
+	@rm -rf build
+
 generate: build compile
 	@mkdir -p $(OUTPUT)
 	@$(BUILD_DIR)/$(TARGET) > $(OUTPUT)/$(IMAGE_NAME)
