@@ -5,14 +5,17 @@ set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
-# set ( EXTERNAL
-#   src/external/stb_image.h
-# )
-
 set(SOURCE
-  src/main.cc
-  src/vec3.h
-  src/color.h
+    src/color.h
+    src/constants.h
+    src/hittable.h
+    src/hittable_list.h
+    src/main.cc
+    src/ray.h
+    src/ray_tracing.h
+    src/interval.h
+    src/sphere.h
+    src/vec3.h
 )
 
 include_directories(src)
@@ -26,5 +29,4 @@ add_compile_options(-Wreorder)              # Data member will be initialized af
 add_compile_options(-Wmaybe-uninitialized)  # Variable improperly initialized
 add_compile_options(-Wunused-variable)      # Variable is defined but unused
 
-# Executables
 add_executable(raytracer ${SOURCE})

@@ -1,23 +1,15 @@
-#include "color.h"
-#include "ray.h"
-#include "vec3.h"
+#include "ray_tracing.h"
 
-#include <iostream>
+#include "hittable.h"
+#include "hittable_list.h"
+#include "sphere.h"
 
-bool hit_sphere(const point3& center, double radius, const ray& r) {
-    auto cq = center - r.origin();
+color ray_color(const ray& r, const hittable& world) {
+    hit_record rec;
 
-    auto a = dot(r.direction(), r.direction());
-    auto b = -2.0 * dot(r.direction(), cq);
-    auto c = dot(cq, cq) - radius * radius;
-    auto discriminant = b * b - 4 * a * c;
-
-    return (discriminant >= 0);
-}
-
-color ray_color(const ray& r) {
-    if (hit_sphere(point3(0, 0, 1), 0.5, r))
-        return color(1, 0, 0);
+    if (world.hit(r, interval(0, infinity), rec)) {
+        return 0.5 * (rec.normal + color(1, 1, 1));
+    }
 
     vec3 unit_direction = unit_vector(r.direction());
     auto a = 0.5 * (unit_direction.y() + 1.0);
@@ -31,6 +23,12 @@ int main() {
     // Calculate the image height and ensure that its at least 1
     int image_height = int(image_width / aspect_ratio);
     image_height = (image_height < 1) ? 1 : image_height;
+
+    // World
+    hittable_list world;
+
+    world.add(std::make_shared<sphere>(point3(0, 0, -1), 0.5));
+    world.add(std::make_shared<sphere>(point3(0, -100.5, -1), 100));
 
     // Camera
     // Viewport widths less than one are ok since they are real valued
@@ -63,7 +61,7 @@ int main() {
             auto ray_direction = pixel_center - camera_center;
             ray r(camera_center, ray_direction);
 
-            color pixel_color = ray_color(r);
+            color pixel_color = ray_color(r, world);
             write_color(std::cout, pixel_color);
         }
     }
