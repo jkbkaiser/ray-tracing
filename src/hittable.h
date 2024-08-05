@@ -1,7 +1,8 @@
 #ifndef HITTABLE_H
 #define HITTABLE_H
 
-#include "ray_tracing.h"
+#include "interval.h"
+#include "ray.h"
 
 class hit_record {
 public:

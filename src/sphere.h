@@ -2,22 +2,19 @@
 #define SPHERE_H
 
 #include "hittable.h"
-#include <iostream>
+#include "interval.h"
+#include "ray.h"
 
 class sphere : public hittable {
-private:
-    point3 center;
-    double radius;
-
 public:
     sphere(const point3& center, double radius)
         : center(center), radius(std::fmax(0, radius)) {}
 
     bool hit(const ray& r, interval ray_t, hit_record& rec) const override {
-        auto cq = center - r.origin();
+        auto oc = center - r.origin();
         auto a = r.direction().length_squared();
-        auto h = dot(r.direction(), cq);
-        auto c = cq.length_squared() - radius * radius;
+        auto h = dot(r.direction(), oc);
+        auto c = oc.length_squared() - radius * radius;
 
         auto discriminant = h * h - a * c;
 
@@ -42,6 +39,10 @@ public:
 
         return true;
     }
+
+private:
+    point3 center;
+    double radius;
 };
 
 #endif

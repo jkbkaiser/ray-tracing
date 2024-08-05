@@ -2,6 +2,7 @@
 #define CONSTANTS_H
 
 #include <cmath>
+#include <limits>
 
 // Constants
 const double infinity = std::numeric_limits<double>::infinity();

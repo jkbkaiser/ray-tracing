@@ -17,6 +17,15 @@ public:
 
     bool surrounds(double x) const { return this->min < x && x < this->max; }
 
+    double clamp(double x) const {
+        if (x < this->min) {
+            return this->min;
+        } else if (x > this->max) {
+            return this->max;
+        }
+        return x;
+    }
+
     static const interval empty, universe;
 };
 

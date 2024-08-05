@@ -12,7 +12,7 @@ set(SOURCE
     src/hittable_list.h
     src/main.cc
     src/ray.h
-    src/ray_tracing.h
+    src/utils.h
     src/interval.h
     src/sphere.h
     src/vec3.h
@@ -28,5 +28,7 @@ add_compile_options(-Wnon-virtual-dtor)     # Class has virtual functions, but i
 add_compile_options(-Wreorder)              # Data member will be initialized after [other] data member
 add_compile_options(-Wmaybe-uninitialized)  # Variable improperly initialized
 add_compile_options(-Wunused-variable)      # Variable is defined but unused
+
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 add_executable(raytracer ${SOURCE})
