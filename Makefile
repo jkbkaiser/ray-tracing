@@ -10,7 +10,7 @@ clean:
 
 generate: compile
 	@mkdir -p $(OUTPUT)
-	@$(BUILD_DIR)/$(TARGET) > $(OUTPUT)/$(IMAGE_NAME)
+	time ($(BUILD_DIR)/$(TARGET) > $(OUTPUT)/$(IMAGE_NAME))
 
 visualize:
 	@feh $(OUTPUT)/$(IMAGE_NAME) 2> /dev/null
